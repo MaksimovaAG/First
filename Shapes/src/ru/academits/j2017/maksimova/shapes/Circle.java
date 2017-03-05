@@ -1,16 +1,14 @@
 package ru.academits.j2017.maksimova.shapes;
 
-import java.util.Objects;
+public class Circle implements Shape {
+    private double r;
 
-public class Square implements Shape {
-    private double side;
-
-    public Square(double side) {
-        this.side = side;
+    public Circle(double r) {
+        this.r = r;
     }
 
     public String toString() {
-        return new String("квадрат со стороной " + side);
+        return new String("окружность со стороной " + r);
     }
 
     public boolean equals(Object a) {
@@ -21,32 +19,32 @@ public class Square implements Shape {
             return false;
         }
 
-        Square b = (Square) a;
-        return side == b.side;
+        Circle b = (Circle) a;
+        return r == b.r;
     }
 
     public int hashCode() {
         final int constant = 4; //число фигур
-        return constant * (int) side - 4;
+        return constant * (int) r - 3;
     }
 
-    public double getSide() {
-        return side;
+    public double getR() {
+        return r;
     }
 
     public double getWidth() {
-        return side;
+        return 2 * r;
     }
 
     public double getHeight() {
-        return side;
+        return 2 * r;
     }
 
     public double getArea() {
-        return side * side;
+        return Math.PI * r * r;
     }
 
     public double getPerimeter() {
-        return 4 * side;
+        return 2 * Math.PI * r;
     }
 }
