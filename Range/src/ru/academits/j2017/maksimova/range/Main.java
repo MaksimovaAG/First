@@ -5,28 +5,37 @@ public class Main {
         double from = -11.2;
         double to = 4.5;
         Range fromTo = new Range(from, to);
-        Range a = new Range(1.2, 3.0);
-        Range b = new Range(7.6, 17);
+        Range a = new Range(1.2, 7.8);
+        Range b = new Range(0.6, 17);
 
         a.print();
         b.print();
 
         System.out.println("Длина интервала " + fromTo.getLength());
 
-        if (fromTo.getIntersection(a, b) == null) {
+        if (b.getIntersection(a) == null) {
             System.out.println("Интервалы не пересекаются.");
         } else {
             System.out.print("Пересечение интервала ");
-            fromTo.getIntersection(a, b).print();
+            b.getIntersection(a).print();
         }
 
-        if (fromTo.getUnion(a, b).length == 1) {
+        if (b.getUnion(a).length == 1) {
             System.out.print("Объединение интервалов ");
-            fromTo.getUnion(a, b)[0].print();
+            b.getUnion(a)[0].print();
         } else {
             System.out.print("Объединение интервалов ");
-            fromTo.getUnion(a, b)[0].print();
-            fromTo.getUnion(a, b)[1].print();
+            b.getUnion(a)[0].print();
+            b.getUnion(a)[1].print();
+        }
+
+        if (b.getDifference(a).length == 1) {
+            System.out.print("Разность интервалов ");
+            b.getDifference(a)[0].print();
+        } else {
+            System.out.print("Разность интервалов ");
+            b.getDifference(a)[0].print();
+            b.getDifference(a)[1].print();
         }
 
         double number = 2.0;

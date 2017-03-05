@@ -5,40 +5,62 @@ class Range {
     private double to;
 
     public Range(double from, double to) {
+        if (from >= to) {
+            throw new IllegalArgumentException("Начало больше конца.");
+        }
         this.from = from;
         this.to = to;
     }
 
     public void print() {
-        System.out.printf("(%.1f; %.1f)\n", from, to);
+        System.out.printf("(%.1f; %.1f)%n", from, to);
+    }
+
+    public double getFrom() {
+        return from;
+    }
+
+    public double getTo() {
+        return to;
     }
 
     public double getLength() {
         return (to - from);
     }
 
-    public Range getIntersection(Range a, Range b) {
-        if ((a.to < b.from) || (b.to < a.from)) {
+    public Range getIntersection(Range a) {
+        if (!isInside(a)) {
             return null;
-        } else if ((a.to >= b.from) && (a.from <= b.from)) {
-            return new Range(b.from, Math.min(a.to, b.to));
-        } else if ((b.to >= a.from) && (b.from <= a.from)) {
-            return new Range(a.from, Math.min(a.to, b.to));
+        } else {
+            return new Range(Math.max(a.from, from), Math.min(a.to, to));
         }
-        return null;
     }
 
-    public Range[] getUnion(Range a, Range b) {
-        if ((a.to < b.from) || (b.to < a.from)) {
-            Range union[] = {a, b};
-            return union;
+    public Range[] getUnion(Range a) {
+        if (isInside(a)) {
+            return new Range[]{new Range(Math.min(a.from, from), Math.max(a.to, to))};
         }
 
-        Range union[] = {new Range(Math.min(a.from, b.from), Math.max(a.to, b.to))};
-        return union;
+        return new Range[]{new Range(a.from, a.to), new Range(from, to)};
+    }
+
+    public Range[] getDifference(Range a) {
+        if (!isInside(a)) {
+            return new Range[]{new Range(from, to)};
+        } else if (isInside(a.to) && isInside(a.from)) {
+            return new Range[]{new Range(from, a.from), new Range(a.to, to)};
+        } else if (isInside(a.from)) {
+            return new Range[]{new Range(from, a.from)};
+        } else {
+            return new Range[]{new Range(a.to, to)};
+        }
     }
 
     public boolean isInside(double number) {
         return ((number >= from) && (number <= to));
+    }
+
+    public boolean isInside(Range a) {
+        return (isInside(a.to) || isInside(a.from));
     }
 }
