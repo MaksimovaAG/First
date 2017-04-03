@@ -74,15 +74,7 @@ class Range {
         return ((number > from) && (number < to));
     }
 
-    public boolean isOnBorder(double number) {
-        return ((number == from) || (number == to));
-    }
-
     public boolean isInside(Range a) {
         return (isInside(a.to) || isInside(a.from));
-    }
-
-    public boolean isOnBorder(Range a) {
-        return (isOnBorder(a.to) || isOnBorder(a.from));
     }
 }
