@@ -5,8 +5,8 @@ public class Main {
         double from = -11.2;
         double to = 4.5;
         Range fromTo = new Range(from, to);
-        Range a = new Range(1.2, 7.8);
-        Range b = new Range(0.6, 17);
+        Range a = new Range(11, 13);
+        Range b = new Range(11, 12);
 
         a.print();
         b.print();
@@ -29,7 +29,9 @@ public class Main {
             b.getUnion(a)[1].print();
         }
 
-        if (b.getDifference(a).length == 1) {
+        if (b.getDifference(a) == null) {
+            System.out.println("Разность интервалов - пустое множество.");
+        } else if (b.getDifference(a).length == 1) {
             System.out.print("Разность интервалов ");
             b.getDifference(a)[0].print();
         } else {
